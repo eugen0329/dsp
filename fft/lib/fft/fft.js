@@ -10,7 +10,15 @@ function FFT() {
 
 
   this.direct = function(vec) {
-    return transform(vec, DIRECT)
+    return transform(vec, DIRECT);
+  }
+
+  this.inverse = function(vec) {
+    var results = transform(vec, INVERSE);
+    for (var i = 0, len = results.length; i < len; i++) {
+      results[i] = math.divide(results[i], results.length * 1.0) ;
+    }
+    return results;
   }
 
   function transform(vec, direction) {
@@ -23,7 +31,8 @@ function FFT() {
     var left  = [],
         right = [];
 
-    var wn = math.complex({r: 1, phi: (-2.0 * PI)/len }),
+    // var wn = math.complex({r: 1, phi: (-2.0 * PI * direction)/len }),
+    var wn = math.complex({re: cos(PI/halfLen), im: direction * sin(PI/halfLen)})
         w  = math.complex(1, 0);
     for (var j = 0; j < halfLen; j++) {
       // left[j] = vec[j] + vec[j + halfLen];
@@ -34,7 +43,8 @@ function FFT() {
       w = math.multiply(w, wn);
     }
 
-    return merge(transform(left, 1), transform(right, 1));
+    return merge(transform(left, direction), transform(right, direction));
+    return transform(left, direction).concat(transform(right, direction));
   }
 
   var merge = function(left, right) {

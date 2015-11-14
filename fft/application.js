@@ -9,14 +9,14 @@ var values, results, inverse;
     //                                    LCM( 2π/3, 6π/3 ) = 2π
     //   LCM - least common multiple
 
-
     var pres = 3;
     var sampler = new Sampler();
 
-    values = sampler.apply(srcSignal, 16,  Math.PI- 2);
+    values = sampler.apply(srcSignal, 16, Math.PI- 2);
+    values = [1,2,3,4]
     rounded_values = $.map(values, function(num) { return math.round(num, pres); });
 
-    results = fft.direct(values, 1);
+    results = fft.forward(values, 1);
     rounded_results = $.map(results, function(num) { return math.round(num, pres); });
 
 

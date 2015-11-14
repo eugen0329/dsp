@@ -5,12 +5,12 @@ function FFT() {
       sin = Math.sin,
       PI  = Math.PI;
 
-  var DIRECT  = 1,
+  var FORWARD  = 1,
       INVERSE = -1;
 
 
-  this.direct = function(vec) {
-    return transform(vec, DIRECT);
+  this.forward = function(vec) {
+    return transform(vec, FORWARD);
   }
 
   this.inverse = function(vec) {
@@ -31,8 +31,8 @@ function FFT() {
     var left  = [],
         right = [];
 
-    // var wn = math.complex({r: 1, phi: (-2.0 * PI * direction)/len }),
-    var wn = math.complex({re: cos(PI/halfLen), im: direction * sin(PI/halfLen)})
+    // var wn = math.complex({re: cos(PI/halfLen), im: -1 * direction * sin(PI/halfLen)})
+      var wn = math.complex({r: 1, phi: (-2.0 * PI * direction)/len }),
         w  = math.complex(1, 0);
     for (var j = 0; j < halfLen; j++) {
       // left[j] = vec[j] + vec[j + halfLen];

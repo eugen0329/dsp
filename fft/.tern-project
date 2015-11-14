@@ -1,0 +1,8 @@
+{
+  "libs": [
+    "browser",
+    "jquery",
+    "d3",
+    "math"
+  ]
+}

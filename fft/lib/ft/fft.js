@@ -1,4 +1,4 @@
-var fft = new FFT()
+var fft = new FFT();
 
 function FFT() {
   var cos = Math.cos,

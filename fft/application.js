@@ -1,5 +1,5 @@
 
-var values, results, inverse;
+var values, fftResults, fftInverse;
 (function() {
   $(document).ready(function() {
     //   y=sin(3x)+cos(x)
@@ -14,29 +14,32 @@ var values, results, inverse;
 
     values = sampler.apply(srcSignal, 16, Math.PI- 2);
     values = [1,2,3,4]
-    rounded_values = $.map(values, function(num) { return math.round(num, pres); });
+    valuesRounded = $.map(values, function(num) { return math.round(num, pres); });
 
-    results = fft.forward(values, 1);
-    rounded_results = $.map(results, function(num) { return math.round(num, pres); });
+    fftResults = fft.forward(values);
+    fftResultsRounded = $.map(fftResults, function(num) { return math.round(num, pres); });
 
+    dftResults = dft.forward(values);
+    dftResultsRounded = $.map(dftResults, function(num) { return math.round(num, pres); });
 
-    inverse = fft.inverse(results);
-    rounded_inverse = $.map(inverse, function(num) { return math.round(num, pres); });
+    fftInverse = fft.inverse(fftResults);
+    fftInverseRounded = $.map(fftInverse, function(num) { return math.round(num, pres); });
 
     var row;
     var table_body = ''
-    for (var i = 0, len = rounded_values.length; i < len; i++) {
-      row  = '<td>' + rounded_values[i]  + '</td>';
-      row += '<td>' + rounded_results[i] + '</td>';
-      row += '<td>' + rounded_inverse[i] + '</td>';
+    for (var i = 0, len = valuesRounded.length; i < len; i++) {
+      row  = '<td>' + valuesRounded[i]  + '</td>';
+      row += '<td>' + fftResultsRounded[i] + '</td>';
+      row += '<td>' + dftResultsRounded[i] + '</td>';
+      row += '<td>' + fftInverseRounded[i] + '</td>';
       table_body += '<tr>' + row + '</tr>'
     }
 
     $('tbody').html(table_body)
 
-    // $('body').html('<p>['   + rounded_values.join(", ") + ']</p>');
-    // $('body').append('<p>[' + rounded_results.join(", ") + ']</p>');
-    // $('body').append('<p>[' + rounded_inverse.join(", ") + ']</p>');
+    // $('body').html('<p>['   + valuesRounded.join(", ") + ']</p>');
+    // $('body').append('<p>[' + fftResultsRounded.join(", ") + ']</p>');
+    // $('body').append('<p>[' + fftInverseRounded.join(", ") + ']</p>');
   });
 })();
 

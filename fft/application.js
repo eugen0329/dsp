@@ -25,6 +25,9 @@ var values, fftResults, fftInverse;
     fftInverse = fft.inverse(fftResults);
     fftInverseRounded = $.map(fftInverse, function(num) { return math.round(num, pres); });
 
+    dftInverse = dft.inverse(dftResults);
+    dftInverseRounded = $.map(dftInverse, function(num) { return math.round(num, pres); });
+
     var row;
     var table_body = ''
     for (var i = 0, len = valuesRounded.length; i < len; i++) {
@@ -32,6 +35,7 @@ var values, fftResults, fftInverse;
       row += '<td>' + fftResultsRounded[i] + '</td>';
       row += '<td>' + dftResultsRounded[i] + '</td>';
       row += '<td>' + fftInverseRounded[i] + '</td>';
+      row += '<td>' + dftInverseRounded[i] + '</td>';
       table_body += '<tr>' + row + '</tr>'
     }
 

@@ -3,10 +3,11 @@ function appendDiagram(data) {
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-  var formatPercent = d3.format(".0%");
+  var xFormat = d3.format(".1f");
 
   var x = d3.scale.ordinal()
-          .rangeRoundBands([0, width], .1);
+          .rangeRoundPoints([0, width])
+
   var y = d3.scale.linear()
           .range([height, 0]);
 
@@ -45,7 +46,7 @@ function appendDiagram(data) {
       .call(xAxis);
 
   var barWidth = 2;
-  var barWidth = 2;
+
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis)
@@ -59,11 +60,10 @@ function appendDiagram(data) {
   var gEnter = svg.selectAll('.bar')
       .data(data)
     .enter().append('rect')
-      .attr('width', 2)
-      .attr('x', function(e) { return x(e.x) + x.rangeBand() / 2 - 1 ; })
+      .attr('width', barWidth)
+      .attr('x', function(e) { return x(e.x) - barWidth / 2; })
       .attr('y', function(e) {  return y(e.y); })
       .attr('height', function(e) {  return height - y(e.y); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
 }
-

@@ -8,7 +8,8 @@ function Sampler() {
   this.apply = function(srcSignal, num, step) {
     var  values = [];
     for (var i = 0; i < num; i++) {
-      values.push(srcSignal(step * i));
+      var x = step * i
+      values.push(srcSignal(x));
     }
     return values;
   };

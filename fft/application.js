@@ -10,26 +10,28 @@ var values, fftResults, fftInverse;
     //   LCM - least common multiple
 
     var pres = 3;
+    var yRound = function(e) {  return math.round(e, pres); };
     var sampler = new Sampler();
 
-    values = sampler.apply(srcSignal, 16, Math.PI- 2);
-    values = [1,2,3,4]
-    valuesRounded = $.map(values, function(num) { return math.round(num, pres); });
+    var samplingStep = Math.PI- 2;
+    values = sampler.apply(srcSignal, 16, samplingStep);
+    // values = [1,2,3,4]
+    valuesRounded = values.map(yRound);
 
     fftResults = fft.forward(values);
-    fftResultsRounded = $.map(fftResults, function(num) { return math.round(num, pres); });
+    fftResultsRounded = fftResults.map(yRound);
 
     dftResults = dft.forward(values);
-    dftResultsRounded = $.map(dftResults, function(num) { return math.round(num, pres); });
+    dftResultsRounded = dftResults.map(yRound);
 
     fftInverse = fft.inverse(fftResults);
-    fftInverseRounded = $.map(fftInverse, function(num) { return math.round(num, pres); });
+    fftInverseRounded = fftInverse.map(yRound);
 
     dftInverse = dft.inverse(dftResults);
-    dftInverseRounded = $.map(dftInverse, function(num) { return math.round(num, pres); });
+    dftInverseRounded = dftInverse.map(yRound);
 
     var row;
-    var table_body = ''
+    var table_body = '';
     for (var i = 0, len = valuesRounded.length; i < len; i++) {
       row  = '<td>' + valuesRounded[i]  + '</td>';
       row += '<td>' + fftResultsRounded[i] + '</td>';
@@ -39,7 +41,10 @@ var values, fftResults, fftInverse;
       table_body += '<tr>' + row + '</tr>'
     }
 
-    $('tbody').html(table_body)
+
+    $('tbody').html(table_body);
+    // appendDiagram(values);
+
 
     // $('body').html('<p>['   + valuesRounded.join(", ") + ']</p>');
     // $('body').append('<p>[' + fftResultsRounded.join(", ") + ']</p>');

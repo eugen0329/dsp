@@ -11,6 +11,7 @@ var values, fftResults, fftInverse;
 
     var pres = 3;
     var yRound = function(e) {  return math.round(e, pres); };
+    var roundDiag = function(e, i) {  return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }
     var sampler = new Sampler();
 
     var samplingStep = Math.PI- 2;
@@ -43,12 +44,15 @@ var values, fftResults, fftInverse;
 
 
     $('tbody').html(table_body);
-    appendDiagram(values.map(function(e, i) {  return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }));
 
+    var margin = {top: 20, right: 10, bottom: 15, left: 20},
+        width = 400 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom;
 
-    // $('body').html('<p>['   + valuesRounded.join(", ") + ']</p>');
-    // $('body').append('<p>[' + fftResultsRounded.join(", ") + ']</p>');
-    // $('body').append('<p>[' + fftInverseRounded.join(", ") + ']</p>');
+    appendDiagram(fftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);
+    appendDiagram(dftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);
+    appendDiagram(fftInverse.map(roundDiag), '#fft-forward-diag', margin, width, height);
+    appendDiagram(dftInverse.map(roundDiag), '#fft-forward-diag', margin, width, height);
   });
 })();
 

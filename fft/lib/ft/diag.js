@@ -1,7 +1,7 @@
-function appendDiagram(data) {
-  var margin = {top: 40, right: 20, bottom: 30, left: 40},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+function appendDiagram(data, container, margin, width, height) {
+  margin = typeof maring === 'undefined' ? {top: 40, right: 20, bottom: 30, left: 40} : margin;
+  width  = typeof width === 'undefined' ? 960 - margin.left - margin.right : width;
+  height  = typeof height === 'undefined' ? 500 - margin.top - margin.bottom : height;
 
   var xFormat = d3.format(".1f");
 
@@ -29,14 +29,13 @@ function appendDiagram(data) {
   })
 
 
-  var svg = d3.select('body').append('svg')
+  var svg = d3.select(container).append('svg')
               .attr('width',  width + margin.left + margin.right)
               .attr('height', height + margin.top + margin.bottom)
               .call(tip)
             .append('g')
               .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
-  // x.domain(data.map(function(e) { return d3.round(e.x, 2); }));
   x.domain(data.map(function(e) { return e.x; }));
   y.domain([0, d3.max(data, function(e) { return e.y; })]);
 
@@ -45,10 +44,10 @@ function appendDiagram(data) {
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis);
 
-  var barWidth = 2;
+  var barWidth = 3;
 
   svg.append("g")
-      .attr("class", "y axis")
+      .attr("class", "axis y-axis")
       .call(yAxis)
     .append('text')
       .attr('transform', 'rotate(-90)')
@@ -57,13 +56,19 @@ function appendDiagram(data) {
       .style('text-anchor', 'end')
       .text('Y')
 
-  var gEnter = svg.selectAll('.bar')
+  svg.selectAll('.bar')
       .data(data)
     .enter().append('rect')
-      .attr('width', barWidth)
-      .attr('x', function(e) { return x(e.x) - barWidth / 2; })
-      .attr('y', function(e) {  return y(e.y); })
-      .attr('height', function(e) {  return height - y(e.y); })
+      .attr('class', 'bar')
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
+      .attr('width', barWidth)
+      .attr('x', function(e) { return x(e.x) - barWidth / 2; })
+      .attr('y', height)
+      .attr('height', 0)
+      .transition()
+      .duration(300)
+      .delay(function(e, i) {  return i * 20; })
+      .attr('y', function(e) {  return y(e.y); })
+      .attr('height', function(e) {  return height - y(e.y); })
 }

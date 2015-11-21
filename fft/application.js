@@ -43,7 +43,7 @@ var values, fftResults, fftInverse;
 
 
     $('tbody').html(table_body);
-    // appendDiagram(values);
+    appendDiagram(values.map(function(e, i) {  return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }));
 
 
     // $('body').html('<p>['   + valuesRounded.join(", ") + ']</p>');

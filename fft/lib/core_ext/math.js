@@ -10,5 +10,9 @@ math.round = function(num, pres) {
 }
 
 math.complex.abs = function(v) {
-  return Math.sqrt(1.0 * v.re * v.re + v.im * v.im);
+  if(v.isComplex) {
+    return Math.sqrt(1.0 * v.re * v.re + v.im * v.im);
+  } else {
+    return Math.abs(v);
+  }
 }

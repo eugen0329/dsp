@@ -3,17 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <script src="vendor/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
-  <script src="vendor/d3.js" type="text/javascript" charset="utf-8"></script>
-  <script src="vendor/math.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/core_ext/math.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/ft/dft.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/ft/fft.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/ft/sampler.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/ft/diag.js" type="text/javascript" charset="utf-8"></script>
-  <script src="application.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+  <style>
+
+  body {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .bar {
+    fill: orange;
+  }
+
+  .bar:hover {
+    fill: orangered ;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+
+  /* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+  /* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+  g {
+    cursor: pointer;
+    pointer-events: all;
+  }
+  </style>
 
   <table border="1">
     <thead>
@@ -29,5 +79,18 @@
     </tbody>
   </table>
 
+  <!-- <div id="fft-forward-diag" style="width: 800px; height: 500px;"> -->
+  <!-- </div> -->
+
+  <script src="vendor/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+  <script src="vendor/d3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="vendor/math.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/core_ext/math.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/ft/dft.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/ft/fft.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/ft/sampler.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/ft/diag.js" type="text/javascript" charset="utf-8"></script>
+  <script src="application.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

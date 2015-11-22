@@ -11,9 +11,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
+        <h4>Dataset:</h4>
         <table class="table table-hover">
           <thead>
-            <tr>
+            <tr class="active">
               <td>Initial</td>
               <td>FFT Forward</td>
               <td>DFT Forward</td>
@@ -26,7 +27,36 @@
         </table>
       </div>
 
-      <div id="fft-forward-diag" class="col-md-8">
+      <div class="col-md-8">
+
+        <div class="row">
+          <h4>Forward transform</h4>
+          <div class="col-md-5">
+            <h6>FFT</h6>
+            <div id="fft-forward-diag">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h6>DFT</h6>
+            <div id="dft-forward-diag">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h4>Inverse transform</h4>
+          <div class="col-md-5">
+            <h6>FFT</h6>
+            <div id="fft-inverse-diag">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h6>DFT</h6>
+            <div id="dft-inverse-diag">
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

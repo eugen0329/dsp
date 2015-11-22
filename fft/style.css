@@ -50,3 +50,7 @@ g {
   cursor: pointer;
   pointer-events: all;
 }
+
+.tick {
+  font-size: 8px;
+}

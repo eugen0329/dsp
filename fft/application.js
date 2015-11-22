@@ -3,9 +3,9 @@ var values, fftResults, fftInverse;
 (function() {
   $(document).ready(function() {
     //   y=sin(3x)+cos(x)
-    //   y' = a *f(kx + b)
-    //   Ty' = T(f[x])/k
-    //   Ty = LCM( T(sin)/3, T(cos)) =  LCM( 2π/3, 2π ) =
+    //     y' = a *f(kx + b)
+    //     Ty' = T(f[x])/k
+    //   Ty = LCM(T(sin)/3, T(cos)) =  LCM( 2π/3, 2π ) =
     //                                    LCM( 2π/3, 6π/3 ) = 2π
     //   LCM - least common multiple
 
@@ -48,13 +48,13 @@ var values, fftResults, fftInverse;
     $('tbody').html(table_body);
 
     var margin = {top: 20, right: 10, bottom: 15, left: 20},
-        width = 340 - margin.left - margin.right,
+        width = 300 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
     appendDiagram(fftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);
-    appendDiagram(dftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);
-    appendDiagram(fftInverse.map(roundDiag), '#fft-forward-diag', margin, width, height);
-    appendDiagram(dftInverse.map(roundDiag), '#fft-forward-diag', margin, width, height);
+    appendDiagram(dftResults.map(roundDiag), '#dft-forward-diag', margin, width, height);
+    appendDiagram(fftInverse.map(roundDiag), '#fft-inverse-diag', margin, width, height);
+    appendDiagram(dftInverse.map(roundDiag), '#dft-inverse-diag', margin, width, height);
   });
 })();
 

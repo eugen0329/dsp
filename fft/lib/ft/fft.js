@@ -40,13 +40,12 @@ function FFT() {
     for (var j = 0; j < halfLen; j++) {
       // left[j] = vec[j] + vec[j + halfLen];
       left[j] = math.add(vec[j], vec[j + halfLen]);
-      that.complexity += 3;
+      that.complexity += 1;
       // right[j] = w * (vec[j] - vec[j + halfLen]);
       right[j] = math.multiply(math.subtract(vec[j], vec[j + halfLen]), w);
-      that.complexity += 4;
+      that.complexity += 1;
       // w *= wn;
       w = math.multiply(w, wn);
-      that.complexity += 1;
     }
 
     return merge(transform(left, direction), transform(right, direction));

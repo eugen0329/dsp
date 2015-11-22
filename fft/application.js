@@ -44,8 +44,11 @@ var values, fftResults, fftInverse;
       table_body += '<tr>' + row + '</tr>'
     }
 
+    $('#dataset tbody').html(table_body);
 
-    $('tbody').html(table_body);
+    $('#fft-complexity').html(fftComplexity);
+    $('#dft-complexity').html(dftComplexity);
+    
 
     var margin = {top: 20, right: 10, bottom: 15, left: 20},
         width = 300 - margin.left - margin.right,

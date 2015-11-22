@@ -20,9 +20,11 @@ var values, fftResults, fftInverse;
     valuesRounded = values.map(yRound);
 
     fftResults = fft.forward(values);
+    var fftComplexity = fft.complexity;
     fftResultsRounded = fftResults.map(yRound);
 
     dftResults = dft.forward(values);
+    var dftComplexity = dft.complexity;
     dftResultsRounded = dftResults.map(yRound);
 
     fftInverse = fft.inverse(fftResults);

@@ -7,13 +7,17 @@ function FFT() {
 
   var FORWARD  = 1,
       INVERSE = -1;
-
+  // TODO
+  var that = this;
+  this.complexity = 0;
 
   this.forward = function(vec) {
+    complexity = 0;
     return transform(vec, FORWARD);
   }
 
   this.inverse = function(vec) {
+    complexity = 0;
     var results = transform(vec, INVERSE);
     for (var i = 0, len = results.length; i < len; i++) {
       results[i] = math.divide(results[i], results.length * 1.0) ;
@@ -21,7 +25,7 @@ function FFT() {
     return results;
   }
 
-  function transform(vec, direction) {
+  transform = function(vec, direction) {
     var len = vec.length;
     if (len == 1) {
       return vec;
@@ -31,20 +35,21 @@ function FFT() {
     var left  = [],
         right = [];
 
-    // var wn = math.complex({re: cos(PI/halfLen), im: -1 * direction * sin(PI/halfLen)})
-      var wn = math.complex({r: 1, phi: (-2.0 * PI * direction)/len }),
+    var wn = math.complex({r: 1, phi: (-2.0 * PI * direction)/len }),
         w  = math.complex(1, 0);
     for (var j = 0; j < halfLen; j++) {
       // left[j] = vec[j] + vec[j + halfLen];
       left[j] = math.add(vec[j], vec[j + halfLen]);
-      // right[j] = w * (vec[j], vec[j + halfLen]);
+      that.complexity += 3;
+      // right[j] = w * (vec[j] - vec[j + halfLen]);
       right[j] = math.multiply(math.subtract(vec[j], vec[j + halfLen]), w);
+      that.complexity += 4;
       // w *= wn;
       w = math.multiply(w, wn);
+      that.complexity += 1;
     }
 
     return merge(transform(left, direction), transform(right, direction));
-    return transform(left, direction).concat(transform(right, direction));
   }
 
   var merge = function(left, right) {
@@ -56,8 +61,4 @@ function FFT() {
     }
     return merged;
   }
-
-  return this;
 }
-
-

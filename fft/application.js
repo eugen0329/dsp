@@ -1,5 +1,4 @@
-
-function handleResults(samplingStep) {
+function handleResults(samplingStep, counts) {
   //   y=sin(3x)+cos(x)
   //     y' = a *f(kx + b)
   //     Ty' = T(f[x])/k
@@ -14,7 +13,7 @@ function handleResults(samplingStep) {
   var sampler = new Sampler();
 
   // var samplingStep = Math.PI- 2;
-  values = sampler.apply(srcSignal, 8, samplingStep);
+  values = sampler.apply(srcSignal, counts, samplingStep);
   // values = [1,2,3,4, 5, 6, 7, 8]
   valuesRounded = values.map(yRound);
 
@@ -35,7 +34,7 @@ function handleResults(samplingStep) {
   var row;
   var table_body = '';
   for (var i = 0, len = valuesRounded.length; i < len; i++) {
-    row  = '<td>' + i + '</td>';
+    row  = '<td>' + (i + 1) + '</td>';
     row += '<td>' + valuesRounded[i]  + '</td>';
     row += '<td>' + fftResultsRounded[i] + '</td>';
     row += '<td>' + dftResultsRounded[i] + '</td>';
@@ -69,14 +68,23 @@ function srcSignal(x) {
 }
 
 $('#signal-config-form').on('submit', function(e) {
-  step = parseFloat(this.sampling_step.value);
-  handleResults(step);
+  if($(this).valid()) {
+    var step = parseFloat(this.sampling_step.value);
+    var counts = parseFloat(this.counts.value);
+    handleResults(step, counts);
+  }
   return false;
 });
 
+validateSignalConfig(Math.PI * 2)
+
 var samplingStep = Math.PI - 2;
-var pres = getPrecision($('.sampling-step').prop('step'))
-$('.sampling-step').val(samplingStep.toFixed(pres));
+var pres = getPrecision($('#sampling_step').prop('step'))
+var counts = 16;
+$('#sampling_step').val(samplingStep.toFixed(pres));
+$('#counts').val(counts);
+
+handleResults(samplingStep, counts);
 
 $('.incrementable').on('mousewheel', function(e, dt) {
   var step = $(this).prop('step');
@@ -93,8 +101,7 @@ $('.incrementable').on('mousewheel', function(e, dt) {
 
 // TODO
 function getPrecision(step) {
-  return step.toString().match(/\.(\d+)/)[1].length // no lookbehind in js =(
+  // no lookbehind in js =(
+  return (step.toString().match(/\.(\d+)/) || [null, ''])[1].length
 }
 
-validateSignalConfig(Math.PI * 2)
-$('#update-btn').click();

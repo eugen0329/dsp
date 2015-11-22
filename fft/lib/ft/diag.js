@@ -36,10 +36,13 @@ function appendDiagram(data, container, margin, width, height) {
   x.domain(data.map(function(e) { return e.x; }));
   y.domain([0, d3.max(data, function(e) { return e.y; })]);
 
-  svg.append('g')
+  var xAxisElem = svg.append('g')
       .attr('class', 'axis x-axis')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(xAxis);
+      .call(xAxis)
+
+  xAxisElem.selectAll(".tick text")
+    .call(ifOvelap(removeAll))
 
   var barWidth = 3;
 
@@ -65,7 +68,28 @@ function appendDiagram(data, container, margin, width, height) {
       .attr('height', 0)
       .transition()
       .duration(300)
-      .delay(function(e, i) {  return i * 20; })
+      .delay(function(e, i) {  return i * 400 / data.length; })
       .attr('y', function(e) {  return y(e.y); })
       .attr('height', function(e) {  return height - y(e.y); })
+
+  function ifOvelap(callback) {
+    return function(collection) {
+      var elements = collection[0];
+      var prev = elements[0];
+      for (var i = 1, len = elements.length; i < len; i++) {
+        if (prev.getBoundingClientRect().right >= elements[i].getBoundingClientRect().left) {
+          callback(elements);
+          break;
+        }
+        prev = elements[i];
+      }
+    }
+  }
+
+  function removeAll(collection) {
+    for (var i = 0, len = collection.length; i < len; i++) {
+      collection[i].remove();
+    }
+  }
+
 }

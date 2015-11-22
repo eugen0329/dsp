@@ -5,6 +5,10 @@ function validateSignalConfig(maxSamplingStep) {
         required: true,
         min: 0,
         max: maxSamplingStep
+      },
+      counts: {
+        required: true,
+        pow2: true
       }
     },
     errorPlacement: function(e) { return true },
@@ -17,3 +21,7 @@ function validateSignalConfig(maxSamplingStep) {
     }
   });
 }
+
+jQuery.validator.addMethod("pow2", function(val, elem) {
+  return this.optional(elem) || Number.isInteger(Math.log2(val));
+}, "Please specify the correct domain for your documents");

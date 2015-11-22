@@ -3,8 +3,6 @@ function appendDiagram(data, container, margin, width, height) {
   width  = typeof width === 'undefined' ? 960 - margin.left - margin.right : width;
   height  = typeof height === 'undefined' ? 500 - margin.top - margin.bottom : height;
 
-  var xFormat = d3.format(".1f");
-
   var x = d3.scale.ordinal()
           .rangeRoundPoints([0, width])
 
@@ -18,7 +16,6 @@ function appendDiagram(data, container, margin, width, height) {
   var yAxis = d3.svg.axis()
               .scale(y)
               .orient('left')
-              // .tickFormat(formatPercent);
 
 
   var tip = d3.tip()

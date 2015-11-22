@@ -48,7 +48,7 @@ var values, fftResults, fftInverse;
     $('tbody').html(table_body);
 
     var margin = {top: 20, right: 10, bottom: 15, left: 20},
-        width = 400 - margin.left - margin.right,
+        width = 340 - margin.left - margin.right,
         height = 200 - margin.top - margin.bottom;
 
     appendDiagram(fftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);

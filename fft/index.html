@@ -11,12 +11,15 @@
   <div class="navbar navbar-default" role="navigation">
     <div class="container">
       <nav>
-        <form id="signal-config-form" class="navbar-form">
+        <form id="signal-config-form" class="navbar-form navbar-input-group">
           <div class="navbar-left">
           </div>
 
           <div class="navbar-right">
-            <input type="number" step="0.1" class="form-control incrementable sampling-step" name="sampling_step" placeholder="Sampling step">
+            <div class="form-group">
+              <input id="sampling_step" class="form-control incrementable sampling-step"
+                                        type="number" step="0.01" name="sampling_step" placeholder="Sampling step"
+            </div>
             <input id="update-btn" class="btn btn-default" type="submit" value="Update">
           </div>
         </form>
@@ -31,6 +34,7 @@
         <table class="table table-hover" id="dataset">
           <thead>
             <tr class="active">
+              <td></td>
               <td>Initial</td>
               <td>FFT Forward</td>
               <td>DFT Forward</td>
@@ -101,6 +105,7 @@
 
   <script src="vendor/js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
   <script src="vendor/js/jquery.mousewheel.js" type="text/javascript" charset="utf-8"></script>
+  <script src="vendor/js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="vendor/js/d3.js" type="text/javascript" charset="utf-8"></script>
   <script src="vendor/js/d3.tip.js"></script>
   <script src="vendor/js/math.js" type="text/javascript" charset="utf-8"></script>
@@ -110,7 +115,7 @@
   <script src="lib/ft/fft.js" type="text/javascript" charset="utf-8"></script>
   <script src="lib/ft/sampler.js" type="text/javascript" charset="utf-8"></script>
   <script src="lib/ft/diag.js" type="text/javascript" charset="utf-8"></script>
-  <script src="lib/incrementable.js" type="text/javascript" charset="utf-8"></script>
+  <script src="lib/signal-form-validation.js" type="text/javascript" charset="utf-8"></script>
   <script src="application.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

@@ -14,8 +14,8 @@ function handleResults(samplingStep) {
   var sampler = new Sampler();
 
   // var samplingStep = Math.PI- 2;
-  values = sampler.apply(srcSignal, 16, samplingStep);
-  // values = [1,2,3,4]
+  values = sampler.apply(srcSignal, 8, samplingStep);
+  // values = [1,2,3,4, 5, 6, 7, 8]
   valuesRounded = values.map(yRound);
 
   fftResults = fft.forward(values);
@@ -35,7 +35,8 @@ function handleResults(samplingStep) {
   var row;
   var table_body = '';
   for (var i = 0, len = valuesRounded.length; i < len; i++) {
-    row  = '<td>' + valuesRounded[i]  + '</td>';
+    row  = '<td>' + i + '</td>';
+    row += '<td>' + valuesRounded[i]  + '</td>';
     row += '<td>' + fftResultsRounded[i] + '</td>';
     row += '<td>' + dftResultsRounded[i] + '</td>';
     row += '<td>' + fftInverseRounded[i] + '</td>';
@@ -78,6 +79,22 @@ var pres = getPrecision($('.sampling-step').prop('step'))
 $('.sampling-step').val(samplingStep.toFixed(pres));
 
 $('.incrementable').on('mousewheel', function(e, dt) {
-  return incrementableMousewheel(e, dt);
+  var step = $(this).prop('step');
+  var stepVal = parseFloat(step);
+  var pres = getPrecision(step);
+
+  var newVal = typeof this.value !== 'undefined' ? parseFloat(this.value) : 0;
+  newVal += dt > 0 ? stepVal : - stepVal;
+  this.value = newVal.toFixed(pres);
+  //  is required for validation
+  $(this).valid();
+  return false
 })
+
+// TODO
+function getPrecision(step) {
+  return step.toString().match(/\.(\d+)/)[1].length // no lookbehind in js =(
+}
+
+validateSignalConfig(Math.PI * 2)
 $('#update-btn').click();

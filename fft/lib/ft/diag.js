@@ -1,4 +1,4 @@
-function appendDiagram(data, container, margin, width, height) {
+function appendDiagram(data, container, margin, width, height, delay) {
   margin = typeof maring === 'undefined' ? {top: 40, right: 20, bottom: 30, left: 40} : margin;
   width  = typeof width === 'undefined' ? 960 - margin.left - margin.right : width;
   height  = typeof height === 'undefined' ? 500 - margin.top - margin.bottom : height;

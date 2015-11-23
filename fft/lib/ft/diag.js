@@ -1,4 +1,4 @@
-function appendDiagram(data, container, margin, width, height, delay) {
+function appendDiagram(data, container, margin, width, height, forceZeroYDomain) {
   margin = typeof maring === 'undefined' ? {top: 40, right: 20, bottom: 30, left: 40} : margin;
   width  = typeof width === 'undefined' ? 960 - margin.left - margin.right : width;
   height  = typeof height === 'undefined' ? 500 - margin.top - margin.bottom : height;
@@ -34,7 +34,11 @@ function appendDiagram(data, container, margin, width, height, delay) {
               .attr('transform', 'translate(' + margin.left + ',' + margin.right + ')');
 
   x.domain(data.map(function(e) { return e.x; }));
-  y.domain([0, d3.max(data, function(e) { return e.y; })]);
+  if (forceZeroYDomain) {
+    y.domain([0, d3.max(data, function(e) { return e.y; }) + 1]);
+  } else {
+    y.domain([d3.min(data, function(e) { return e.y; }) - 1, d3.max(data, function(e) { return e.y; }) + 1]);
+  }
 
   var xAxisElem = svg.append('g')
       .attr('class', 'axis x-axis')
@@ -49,12 +53,12 @@ function appendDiagram(data, container, margin, width, height, delay) {
   svg.append("g")
       .attr("class", "axis y-axis")
       .call(yAxis)
-    .append('text')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '.71em')
-      .style('text-anchor', 'end')
-      .text('Y')
+    // .append('text')
+    //   .attr('transform', 'rotate(-90)')
+    //   .attr('y', 6)
+    //   .attr('dy', '.71em')
+    //   .style('text-anchor', 'end')
+    //   .text('Y')
 
   svg.selectAll('.bar')
       .data(data)

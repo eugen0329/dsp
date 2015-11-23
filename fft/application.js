@@ -9,13 +9,16 @@ function handleResults(samplingStep, counts) {
 
   var pres = 3;
   var yRound = function(e) {  return math.round(e, pres); };
-  var roundDiag = function(e, i) {  return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }
+  var roundedDataset  = function(e, i) { return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }
+  var freqResponce  = function(e, i) { return {x: math.round(i * samplingStep, 2), y: math.complex.abs(e)}; }
+  var phaseResponce = function(e, i) { return {x: math.round(i * samplingStep, 2), y: math.complex.phase(e)}; }
   var sampler = new Sampler();
 
   // var samplingStep = Math.PI- 2;
   values = sampler.apply(srcSignal, counts, samplingStep);
-  // values = [1,2,3,4, 5, 6, 7, 8]
+  // values = [1,2,3,4 ]
   valuesRounded = values.map(yRound);
+
 
   fftResults = fft.forward(values);
   var fftComplexity = fft.complexity;
@@ -52,14 +55,18 @@ function handleResults(samplingStep, counts) {
       width = 300 - margin.left - margin.right,
       height = 200 - margin.top - margin.bottom;
 
-  $('#fft-forward-diag').empty();
-  appendDiagram(fftResults.map(roundDiag), '#fft-forward-diag', margin, width, height);
-  $('#dft-forward-diag').empty();
-  appendDiagram(dftResults.map(roundDiag), '#dft-forward-diag', margin, width, height);
-  $('#fft-inverse-diag').empty();
-  appendDiagram(fftInverse.map(roundDiag), '#fft-inverse-diag', margin, width, height);
-  $('#dft-inverse-diag').empty();
-  appendDiagram(dftInverse.map(roundDiag), '#dft-inverse-diag', margin, width, height);
+  $('#source-signal-diag').empty();
+  appendDiagram(values.map(roundedDataset), '#source-signal-diag', margin, width * 2, height, true);
+
+  $('#fft-freq-diag').empty();
+  appendDiagram(fftResults.map(freqResponce), '#fft-freq-diag', margin, width, height, true);
+  $('#dft-freq-diag').empty();
+  appendDiagram(dftResults.map(freqResponce), '#dft-freq-diag', margin, width, height, true);
+
+  $('#fft-phase-diag').empty();
+  appendDiagram(fftResults.map(phaseResponce), '#fft-phase-diag', margin, width, height);
+  $('#dft-phase-diag').empty();
+  appendDiagram(dftResults.map(phaseResponce), '#dft-phase-diag', margin, width, height);
   return 0;
 }
 

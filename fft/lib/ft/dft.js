@@ -33,7 +33,7 @@ function DFT() {
 
     for (var i = 0, len = vec.length; i < len; i++) {
       for (var j = 0, len2 = vec.length; j < len2; j++) {
-        var w = math.complex({r: 1, phi: ((dir * 2.0 * PI) / len * i * j)});
+        var w = math.complex({r: 1, phi: ((dir * -2.0 * PI) / len * i * j)});
         // result[i] += (vec[j] + w) * result[i]
         result[i] = math.add(math.multiply(vec[j], w), result[i]);
         that.complexity += 1;

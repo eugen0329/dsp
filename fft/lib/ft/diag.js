@@ -1,4 +1,4 @@
-function appendDiagram(data, container, margin, width, height, forceZeroYDomain) {
+function appendDiagram(data, container, margin, width, height, forceZeroYDomain, line) {
   margin = typeof maring === 'undefined' ? {top: 40, right: 20, bottom: 30, left: 40} : margin;
   width  = typeof width === 'undefined' ? 960 - margin.left - margin.right : width;
   height  = typeof height === 'undefined' ? 500 - margin.top - margin.bottom : height;
@@ -40,6 +40,13 @@ function appendDiagram(data, container, margin, width, height, forceZeroYDomain)
     y.domain([d3.min(data, function(e) { return e.y; }) - 1, d3.max(data, function(e) { return e.y; }) + 1]);
   }
 
+  if(line) {
+    var line = d3.svg.line()
+              .interpolate('basis')
+              .x(function(e) { return x(e.x); })
+              .y(function(e) { return y(e.y); })
+  }
+
   var xAxisElem = svg.append('g')
       .attr('class', 'axis x-axis')
       .attr('transform', 'translate(0,' + height + ')')
@@ -75,6 +82,13 @@ function appendDiagram(data, container, margin, width, height, forceZeroYDomain)
       .delay(function(e, i) {  return i * 400 / data.length; })
       .attr('y', function(e) {  return y(e.y); })
       .attr('height', function(e) {  return height - y(e.y); })
+
+    if(line) {
+      svg.append('path')
+        .datum(data)
+        .attr('class', 'line')
+        .attr('d', line)
+    }
 
   function ifOvelap(callback) {
     return function(collection) {

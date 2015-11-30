@@ -56,7 +56,7 @@ function handleResults(samplingStep, counts) {
       height = 200 - margin.top - margin.bottom;
 
   $('#source-signal-diag').empty();
-  appendDiagram(values.map(roundedDataset), '#source-signal-diag', margin, width * 2, height, true, srcSignal);
+  appendDiagram(values.map(roundedDataset), '#source-signal-diag', margin, width * 2, height, false, srcSignal);
 
   $('#fft-freq-diag').empty();
   appendDiagram(fftResults.map(freqResponce), '#fft-freq-diag', margin, width, height, true);

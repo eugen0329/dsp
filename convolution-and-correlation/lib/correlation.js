@@ -15,4 +15,20 @@ function Correlation() {
     var correlationResults = fft.inverse(multipliedImages);
     return correlationResults;
   }
+
+  this.classic = function(firstPoints, secondPoints) {
+    var len = firstPoints.length;
+    var results = Util.arrayOf(0, len);
+    for (var i = 0; i < len ; i++) {
+      for (var j = 0; j < len; j++) {
+        if (i + j < len) {
+          results[i] += firstPoints[j] * secondPoints[i + j];
+        } else {
+          results[i] += firstPoints[j] * secondPoints[i + j - len];
+        }
+      }
+      // results[i] = results[i] / len;
+    }
+    return results;
+  }
 }

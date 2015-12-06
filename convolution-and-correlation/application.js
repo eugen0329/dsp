@@ -18,42 +18,43 @@ var correlation = {
   fft: correlation.fft(samples1, samples2),
 }
 
-
-
-
 var margin = {top: 20, right: 10, bottom: 15, left: 20},
     width = 300 - margin.left - margin.right,
     height = 200 - margin.top - margin.bottom;
 
+var red = '#F34C44',
+    green = '#2BD288',
+    blue = '#3C70BC',
+    grey = '#8FA1AE'
 var diagOpts = {
   container: '#convolution-freq-diag',
   margin: margin,
   height: height,
   width: width,
   height: height,
-  color: 'grey',
+  color: grey,
   legendId: 'convolution-legend',
-  name: 'Convolution'
+  name: 'Convolution',
+  interpolation: 'basis'
 }
-
-$(diagOpts.container).empty();
-var points = convolution.fft.map(plot.responce.freq(samplingStep))
-var fftPlot = plot.discrete(points, diagOpts);
-plot.append.bar(fftPlot, points, diagOpts);
-
 var lineOpts = {
   ref: ':first-child',
-  color: 'red',
+  color: red,
   interpolation: 'basis',
   legendId: diagOpts.legendId,
   name: 'Sin(3x)'
 }
 
-
+$(diagOpts.container).empty();
+var points = convolution.fft.map(plot.responce.freq(samplingStep))
+var fftPlot = plot.discrete(points, diagOpts);
+plot.append.line(fftPlot, points, diagOpts);
 
 var points = samples1.map(plot.responce.freq(samplingStep))
 plot.append.line(fftPlot, points, lineOpts);
+
 var points = samples2.map(plot.responce.freq(samplingStep))
-plot.append.line(fftPlot, points, Util.merge(lineOpts, {color: 'blue', name: 'Cos(x)'}));
+plot.append.line(fftPlot, points, Util.merge(lineOpts, {color: blue, name: 'Cos(x)'}));
+
 var points = correlation.fft.map(plot.responce.freq(samplingStep))
-plot.append.line(fftPlot, points, Util.merge(lineOpts, {color: 'green', name: 'Correlation'}));
+plot.append.line(fftPlot, points, Util.merge(lineOpts, {color: green, name: 'Correlation'}));

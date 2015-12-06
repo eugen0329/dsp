@@ -57,6 +57,13 @@ g {
 
 .line {
   fill: none;
-  /* stroke: red; */
   stroke-width: 1.5px;
+}
+
+.legend-key {
+    border-left-width: 15px;
+    border-left-style: solid;
+    padding-left: 5px;
+    margin: 2px 0;
+    font-size: 5px;
 }

@@ -25,13 +25,29 @@ var margin = {top: 20, right: 10, bottom: 15, left: 20},
     width = 300 - margin.left - margin.right,
     height = 200 - margin.top - margin.bottom;
 
-var container = '#convolution-freq-diag'
-$(container).empty();
-var plot = appendDiagram(convolution.fft.map(freqResponce), container, margin, width, height);
-var lineOpts = { ref: ':first-child', stroke: 'red', interpolation: 'basis'}
-appendLine(plot, samples1.map(freqResponce), lineOpts);
-appendLine(plot, samples2.map(freqResponce), Util.merge(lineOpts, {stroke: 'blue'}));
-appendLine(plot, correlation.fft.map(freqResponce), Util.merge(lineOpts, {stroke: 'green'}));
+var diagOpts = {
+  container: '#convolution-freq-diag',
+  margin: margin,
+  height: height,
+  width: width,
+  height: height,
+  color: 'grey',
+  legendId: 'convolution-legend',
+  name: 'Convolution'
+}
+
+$(diagOpts.container).empty();
+var diag = plot.bar(convolution.fft.map(freqResponce), diagOpts);
+var lineOpts = {
+  ref: ':first-child',
+  color: 'red',
+  interpolation: 'basis',
+  legendId: diagOpts.legendId,
+  name: 'Sin(3x)'
+}
+plot.append.line(diag, samples1.map(freqResponce), lineOpts);
+plot.append.line(diag, samples2.map(freqResponce), Util.merge(lineOpts, {color: 'blue', name: 'Cos(x)'}));
+plot.append.line(diag, correlation.fft.map(freqResponce), Util.merge(lineOpts, {color: 'green', name: 'Correlation'}));
 
 
 

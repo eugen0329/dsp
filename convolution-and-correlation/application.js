@@ -14,6 +14,10 @@ var convolution = {
   fft: convolution.fft(samples1, samples2),
 }
 
+var correlation = {
+  fft: correlation.fft(samples1, samples2),
+}
+
 
 
 
@@ -27,5 +31,15 @@ var plot = appendDiagram(convolution.fft.map(freqResponce), container, margin, w
 var lineOpts = { ref: ':first-child', stroke: 'red', interpolation: 'basis'}
 appendLine(plot, samples1.map(freqResponce), lineOpts);
 appendLine(plot, samples2.map(freqResponce), Util.merge(lineOpts, {stroke: 'blue'}));
+appendLine(plot, correlation.fft.map(freqResponce), Util.merge(lineOpts, {stroke: 'green'}));
+
+
+
+// var container = '#correlation-freq-diag'
+// $(container).empty();
+// var plot = appendDiagram(correlation.fft.map(freqResponce), container, margin, width, height);
+// var lineOpts = { ref: ':first-child', stroke: 'red', interpolation: 'basis'}
+// appendLine(plot, samples1.map(freqResponce), lineOpts);
+// appendLine(plot, samples2.map(freqResponce), Util.merge(lineOpts, {stroke: 'blue'}));
 
 

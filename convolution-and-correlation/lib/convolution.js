@@ -6,7 +6,7 @@ function Convolution() {
       var firstFftComplexity = fft.complexity;
 
       var secondFFTPoints = fft.forward(secondPoints);
-      var secondFftComplexity = fft.complexity;
+      var secondFFTComplexity = fft.complexity;
 
 
       var multipliedImages = firstFFTPoints.map(function(e, i) { return math.multiply(e, secondFFTPoints[i]); });

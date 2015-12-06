@@ -57,6 +57,6 @@ g {
 
 .line {
   fill: none;
-  stroke: red;
+  /* stroke: red; */
   stroke-width: 1.5px;
 }

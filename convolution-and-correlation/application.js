@@ -23,6 +23,9 @@ var margin = {top: 20, right: 10, bottom: 15, left: 20},
 
 var container = '#convolution-freq-diag'
 $(container).empty();
-appendDiagram(convolution.fft.map(freqResponce), container, margin, width, height);
+var plot = appendDiagram(convolution.fft.map(freqResponce), container, margin, width, height);
+var lineOpts = { ref: ':first-child', stroke: 'red', interpolation: 'basis'}
+appendLine(plot, samples1.map(freqResponce), lineOpts);
+appendLine(plot, samples2.map(freqResponce), Util.merge(lineOpts, {stroke: 'blue'}));
 
 

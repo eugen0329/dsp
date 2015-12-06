@@ -1,13 +1,20 @@
-var samplingStep = Math.PI - 2;
+var stepsCount = 16;
+var samplingStep = Math.PI - 3;
 function firstSignal(x) {
   return Math.sin(3 * x);
 }
-
 function secondSignal(x) {
   return Math.cos(x);
 }
 
-var c = convolution.fft(firstSignal, secondSignal, samplingStep)
+var samples1 = sampler.apply(firstSignal, stepsCount, samplingStep);
+var samples2 = sampler.apply(secondSignal, stepsCount, samplingStep);
+
+var convolution = {
+  fft: convolution.fft(samples1, samples2),
+}
+
+
 
 
 var margin = {top: 20, right: 10, bottom: 15, left: 20},
@@ -16,7 +23,6 @@ var margin = {top: 20, right: 10, bottom: 15, left: 20},
 
 var container = '#convolution-freq-diag'
 $(container).empty();
-appendDiagram(c.map(freqResponce), container, margin, width, height, true);
-var container = '#convolution-phase-diag'
-$(container).empty();
-appendDiagram(c.map(phaseResponce), container, margin, width, height, true);
+appendDiagram(convolution.fft.map(freqResponce), container, margin, width, height);
+
+

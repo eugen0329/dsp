@@ -61,24 +61,20 @@ g {
 }
 
 .legend-key {
-    border-left-width: 15px;
-    border-left-style: solid;
-    padding-left: 5px;
-    margin: 2px 0;
-    font-size: 8px;
+  padding-left: 5px;
+  margin: 2px 0;
+  font-size: 8px;
+  border-left-width: 8px;
+  border-left-style: solid;
 }
 
-.navbar-center
-{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-    text-align: center;
-    margin: auto;
+.navbar-center {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  margin: auto;
   height:100%;
   float: none;
 }
-
-.navbar-brand {
-  }

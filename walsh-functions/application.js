@@ -11,8 +11,8 @@ var fwtRes = {forward: fwt.forward(samples)}
 fwtRes.inverse = fwt.inverse(fwtRes.forward);
 
 var margin = {top: 20, right: 10, bottom: 15, left: 20},
-    width = 300 - margin.left - margin.right,
-    height = 200 - margin.top - margin.bottom;
+    width = 740 - margin.left - margin.right,
+    height = 480 - margin.top - margin.bottom;
 
 var red = '#F34C44',
     green = '#2BD288',
@@ -51,3 +51,8 @@ plot.append.line(fwtPlot, points, params);
 points = fwtRes.forward.map(plot.responce.freq(samplingStep));
 params = Util.merge(lineOpts, Util.merge(diagOpts, {name: 'Inverse', color: red}))
 plot.append.line(fwtPlot, points, params);
+
+var table = new Table();
+var rnd = function(e) { return math.round(e, 3); }
+var t = table.build([samples, fwtRes.inverse, fwtRes.forward], ['Samples', 'Inverse', 'Forward'], rnd)
+$('#dataset-container').html(t);
